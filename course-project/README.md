@@ -36,7 +36,7 @@ Fucking be deployed to some fucking shithub pages >:(
 
 ## Project mulling
 
-These shits have so much policies I can't even vipe my ass without making privacy policy out of it
+These shit APIs have so much policies I can't even wipe my ass without making privacy policy out of it
 
 Doesn't work
 - Weather app
