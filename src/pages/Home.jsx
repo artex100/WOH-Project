@@ -1,23 +1,20 @@
-import { useState } from 'react'
-import heroImg from '../assets/hero.png'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '../assets/vite.svg'
+import { Link } from 'react-router-dom'
+// Placeholder drawing. Swap the file (same name) for the final illustration.
+
 
 function Home() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section>
-        <h1>Kaput machine v2</h1>
-        <div>
-          <input type='search'></input>
-          <button className='search btn'>Pressa här</button>
-        </div>
-      </section>
+    <section>
+      
+      {/** Image for monkey*/}
 
-      <section id="spacer"></section>
-    </>
+      <h1>Which monkey are you?</h1>
+      <p>Welcome! Answer a few questions and find out your inner monkey.</p>
+
+      
+
+      <Link to='/quiz'>Start the quiz</Link>
+    </section>
   )
 }
 

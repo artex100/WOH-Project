@@ -1,19 +1,27 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
-import Nimi from './pages/Nimi'
-import Page2 from './pages/Page2'
+import Quiz from './pages/Quiz'
+import Result from './pages/Result'
+import Stats from './pages/Stats'
+import Settings from './pages/Settings'
 import './App.css'
 
 function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/nimi' element={<Nimi />} />
-        <Route path='/page2' element={<Page2 />} />
-      </Routes>
+      <main className='container py-4'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/quiz' element={<Quiz />} />
+          <Route path='/result' element={<Result />} />
+          <Route path='/stats' element={<Stats />} />
+          <Route path='/settings' element={<Settings />} />
+          {/* Unknown address -> back to home */}
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
+      </main>
     </>
   )
 }

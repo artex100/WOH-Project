@@ -1,14 +1,51 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+
+const links = [
+  { to: '/', label: 'Home' },
+  { to: '/stats', label: 'Stats' },
+  { to: '/settings', label: 'Settings' },
+]
 
 function Navbar() {
+  const [open, setOpen] = useState(false)
+  const close = () => setOpen(false)
+
   return (
-    <div className='navbar'>
-      <section>
-        <Link className='navbar_item' to='/'>home</Link>
-        <Link className='navbar_item' to='/nimi'>nimi</Link>
-        <Link className='navbar_item' to='/page2'>Page 2</Link>
-      </section>
-    </div>
+    <nav className='navbar navbar-expand-md bg-body-tertiary'>
+      <div className='container'>
+        <Link className='navbar-brand' to='/' onClick={close}>
+          Which monkey are you?
+        </Link>
+
+        <button
+          className='navbar-toggler'
+          type='button'
+          aria-controls='main-nav'
+          aria-expanded={open}
+          aria-label='Toggle navigation'
+          onClick={() => setOpen(!open)}
+        >
+          <span className='navbar-toggler-icon'></span>
+        </button>
+
+        <div id='main-nav' className={`collapse navbar-collapse ${open ? 'show' : ''}`}>
+          <div className='navbar-nav ms-auto'>
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className='nav-link'
+                onClick={close}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      </div>
+    </nav>
   )
 }
 
