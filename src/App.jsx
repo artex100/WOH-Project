@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className='container py-4'>
+      <main className='mx-auto max-w-5xl px-4 py-6'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/quiz' element={<Quiz />} />
