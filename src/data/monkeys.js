@@ -22,7 +22,7 @@ export const monkeys = [
   },
   {
     id: 'chimp',
-    image: `${API}/351`,
+    image: `${API}/312`,
     species: { fi: 'Simpanssi', en: 'Chimpanzee' },
     title: { fi: 'Strategi', en: 'The Strategist' },
     description: {
@@ -32,7 +32,7 @@ export const monkeys = [
   },
   {
     id: 'langur',
-    image: `${API}/353`,
+    image: `${API}/307`,
     species: { fi: 'Languri', en: 'Langur' },
     title: { fi: 'Viisas', en: 'The Sage' },
     description: {
@@ -42,7 +42,7 @@ export const monkeys = [
   },
   {
     id: 'tamarin',
-    image: `${API}/354`,
+    image: `${API}/308`,
     species: { fi: 'Kultaleijonatamariini', en: 'Golden lion tamarin' },
     title: { fi: 'Show-apina', en: 'The Show-off' },
     description: {
@@ -52,7 +52,7 @@ export const monkeys = [
   },
   {
     id: 'orangutan',
-    image: `${API}/355`,
+    image: `${API}/304`,
     species: { fi: 'Oranki', en: 'Orangutan' },
     title: { fi: 'Huolehtija', en: 'The Caretaker' },
     description: {
@@ -62,7 +62,7 @@ export const monkeys = [
   },
   {
     id: 'gorilla',
-    image: `${API}/357`,
+    image: `${API}/317`,
     species: { fi: 'Gorilla', en: 'Gorilla' },
     title: { fi: 'Pomo', en: 'The Boss' },
     description: {
@@ -72,7 +72,7 @@ export const monkeys = [
   },
   {
     id: 'lemur',
-    image: `${API}/363`,
+    image: `${API}/326`,
     species: { fi: 'Kattalemuri', en: 'Ring-tailed lemur' },
     title: { fi: 'Utelias', en: 'The Curious One' },
     description: {
@@ -82,7 +82,7 @@ export const monkeys = [
   },
   {
     id: 'spider',
-    image: `${API}/365`,
+    image: `${API}/380`,
     species: { fi: 'Hämähäkkiapina', en: 'Spider monkey' },
     title: { fi: 'Akrobaatti', en: 'The Acrobat' },
     description: {
