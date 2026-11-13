@@ -1,16 +1,27 @@
-# React + Vite
+## How to run the server
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Installing dependencies
 
-Currently, two official plugins are available:
+To install dependencies you need to have `node` and `npm` installed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+You can check the installation with
 
-## React Compiler
+    node --version
+    npm --version
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+If any of the commands report version number you have that one installed.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Install dependencies
+
+    npm install
+
+### Running the dev server
+
+For running the development server you should be able to run `npm run dev` which should start the server to localhost.
+
+To make it reachable from other devices on your network, run `npm run dev -- --host`.
+
+### Building
+
+If you want to build the project for deployment to different website you should use `npm run build` command that makes `dist` folder with files for external server.

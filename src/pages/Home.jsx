@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { loadStats } from '../utils/storage'
 
-const catImage = 'catwithahat.webp'
+const catImage = `${import.meta.env.BASE_URL}catwithahat.webp`
 
 function Home() {
   const { t } = useTranslation()
