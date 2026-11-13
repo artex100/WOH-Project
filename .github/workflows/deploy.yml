@@ -29,3 +29,4 @@ jobs:
           repository-name: artex100/artex100.github.io
           branch: main
           folder: dist
+          target-folder: /woh
