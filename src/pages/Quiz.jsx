@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { loadSettings, saveResult } from '../utils/storage'
+import { useTranslation } from 'react-i18next'
+import { useSettings } from '../context/useSettings'
+import { saveResult } from '../utils/storage'
 import { getQuizQuestions, getWinner } from '../utils/quiz'
 
 function Quiz() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
-  // Picked once when the page opens, so a shuffled order stays the same
-  // for the whole run. (Settings move to React context in step 9.)
-  const [settings] = useState(() => loadSettings())
+  const { settings } = useSettings()
+  const { lang } = settings
+  // Picked once when the page opens, so a shuffled order stays the same for the whole run
   const [questions] = useState(() => getQuizQuestions(settings.questionSet, settings.randomize))
-  const lang = settings.lang
 
   // answers[i] = index of the picked answer for question i
   const [answers, setAnswers] = useState([])
@@ -39,23 +41,21 @@ function Quiz() {
   return (
     <section className='mx-auto max-w-2xl py-6 sm:py-10'>
       <div className='mb-2 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400'>
-        <span>
-          Question {current + 1} / {questions.length}
-        </span>
+        <span>{t('quiz.progress', { current: current + 1, total: questions.length })}</span>
         {current > 0 && (
           <button
             type='button'
             onClick={goBack}
             className='rounded px-2 py-1 hover:text-gray-900 dark:hover:text-white'
           >
-            ← Back
+            {t('quiz.back')}
           </button>
         )}
       </div>
       <div
         className='mb-8 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800'
         role='progressbar'
-        aria-label='Quiz progress'
+        aria-label={t('quiz.progressLabel')}
         aria-valuemin={0}
         aria-valuemax={questions.length}
         aria-valuenow={current}

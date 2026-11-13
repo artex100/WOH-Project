@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/stats', label: 'Stats' },
-  { to: '/settings', label: 'Settings' },
+  { to: '/', label: 'nav.home' },
+  { to: '/stats', label: 'nav.stats' },
+  { to: '/settings', label: 'nav.settings' },
 ]
 
 // NavLink tells us if the link is the current page
@@ -16,6 +17,7 @@ const linkClass = ({ isActive }) =>
   }`
 
 function Navbar() {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
 
@@ -23,7 +25,7 @@ function Navbar() {
     <nav className='border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900'>
       <div className='mx-auto flex max-w-5xl flex-wrap items-center justify-between px-4 py-3'>
         <Link className='text-lg font-semibold' to='/' onClick={close}>
-          Which monkey are you?
+          {t('app.title')}
         </Link>
 
         <button
@@ -31,7 +33,7 @@ function Navbar() {
           type='button'
           aria-controls='main-nav'
           aria-expanded={open}
-          aria-label='Toggle navigation'
+          aria-label={t('nav.toggle')}
           onClick={() => setOpen(!open)}
         >
           <svg className='h-6 w-6' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round'>
@@ -49,7 +51,7 @@ function Navbar() {
                 className={linkClass}
                 onClick={close}
               >
-                {link.label}
+                {t(link.label)}
               </NavLink>
             ))}
           </div>

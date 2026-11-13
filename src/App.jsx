@@ -5,7 +5,6 @@ import Quiz from './pages/Quiz'
 import Result from './pages/Result'
 import Stats from './pages/Stats'
 import Settings from './pages/Settings'
-import './App.css'
 
 function App() {
   return (

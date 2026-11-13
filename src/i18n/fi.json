@@ -1,0 +1,49 @@
+{
+  "app": {
+    "title": "Mikä apina olet?"
+  },
+  "nav": {
+    "home": "Etusivu",
+    "stats": "Tilastot",
+    "settings": "Asetukset",
+    "toggle": "Avaa tai sulje valikko"
+  },
+  "home": {
+    "welcome": "Tervetuloa! Vastaa muutamaan kysymykseen ja selvitä, mikä apina sinussa piilee.",
+    "start": "Aloita testi",
+    "timesTaken_one": "Olet tehnyt testin {{count}} kerran.",
+    "timesTaken_other": "Olet tehnyt testin {{count}} kertaa.",
+    "seeMonkeys": "Katso apinasi"
+  },
+  "quiz": {
+    "progress": "Kysymys {{current}} / {{total}}",
+    "progressLabel": "Testin eteneminen",
+    "back": "← Edellinen"
+  },
+  "result": {
+    "youAre": "Sinä olet...",
+    "noResultTitle": "Ei vielä tulosta",
+    "noResultText": "Tee testi ja selvitä, mikä apina olet.",
+    "imageFailed": "Kuvaa ei voitu ladata.",
+    "tryAgain": "Tee testi uudelleen"
+  },
+  "stats": {
+    "timesTaken_one": "Tehtyjä testejä: {{count}}",
+    "timesTaken_other": "Tehtyjä testejä: {{count}}",
+    "history": "Historia",
+    "empty": "Ei vielä tuloksia.",
+    "takeQuiz": "Tee testi",
+    "noPicture": "Ei kuvaa",
+    "clear": "Tyhjennä historia"
+  },
+  "settings": {
+    "quiz": "Testi",
+    "questionSet": "Kysymyssarja",
+    "randomize": "Sekoita kysymysten järjestys",
+    "appearance": "Ulkoasu",
+    "darkMode": "Tumma tila",
+    "language": "Kieli",
+    "about": "Tietoa",
+    "aboutText": "Mikä apina olet? on pieni persoonallisuustesti, joka on toteutettu Reactilla. Mukana ovat myös React Router, Tailwind CSS ja i18next. Apinoiden kuvat tulevat palvelusta <link>placemonkeys.com</link>. Tuloksesi ja asetuksesi tallennetaan vain tähän selaimeen (localStorage)."
+  }
+}

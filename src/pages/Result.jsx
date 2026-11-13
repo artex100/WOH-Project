@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { getMonkey } from '../data/monkeys'
-import { loadSettings, loadStats } from '../utils/storage'
+import { useSettings } from '../context/useSettings'
+import { loadStats } from '../utils/storage'
 
 // The quiz passes the monkey id in the router state. If the page is opened
 // some other way (refresh, bookmark), fall back to the latest saved result.
@@ -21,19 +23,20 @@ const secondaryButton =
 
 function Result() {
   const location = useLocation()
-  // Read once when the page opens (settings move to context in step 9)
+  const { t } = useTranslation()
+  // Read once when the page opens
   const [monkey] = useState(() => getResultMonkey(location.state))
-  const [lang] = useState(() => loadSettings().lang)
+  const { lang } = useSettings().settings
   const [imageFailed, setImageFailed] = useState(false)
 
   // No quiz finished yet
   if (!monkey) {
     return (
       <section className='flex flex-col items-center py-12 text-center sm:py-20'>
-        <h1>No result yet</h1>
-        <p className='mb-8 text-gray-600 dark:text-gray-300'>Take the quiz to find out which monkey you are.</p>
+        <h1>{t('result.noResultTitle')}</h1>
+        <p className='mb-8 text-gray-600 dark:text-gray-300'>{t('result.noResultText')}</p>
         <Link to='/quiz' className={primaryButton}>
-          Start the quiz
+          {t('home.start')}
         </Link>
       </section>
     )
@@ -42,14 +45,14 @@ function Result() {
   return (
     <section className='mx-auto flex max-w-xl flex-col items-center py-6 text-center sm:py-10'>
       <p className='mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400'>
-        You are...
+        {t('result.youAre')}
       </p>
       <h1 className='mb-1 text-3xl sm:text-4xl'>{monkey.title[lang]}</h1>
       <p className='mb-6 text-lg text-gray-600 dark:text-gray-300'>{monkey.species[lang]}</p>
       <div className='mb-6 aspect-[3/2] w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800'>
         {imageFailed ? (
           <div className='flex h-full items-center justify-center p-4 text-gray-500 dark:text-gray-400'>
-            The picture could not be loaded.
+            {t('result.imageFailed')}
           </div>
         ) : (
           <img
@@ -67,10 +70,10 @@ function Result() {
 
       <div className='flex w-full flex-col gap-3 sm:w-auto sm:flex-row'>
         <Link to='/quiz' className={primaryButton}>
-          Try again
+          {t('result.tryAgain')}
         </Link>
         <Link to='/stats' className={secondaryButton}>
-          Stats
+          {t('nav.stats')}
         </Link>
       </div>
     </section>

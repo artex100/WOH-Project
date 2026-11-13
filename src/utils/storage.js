@@ -33,6 +33,7 @@ function removeKey(key) {
   try {
     localStorage.removeItem(key)
   } catch {
+    // pass
   }
 }
 
@@ -88,7 +89,7 @@ export function getDefaultSettings() {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark'
     if (navigator.language?.toLowerCase().startsWith('fi')) lang = 'fi'
   } catch {
-    
+    // pass
   }
   return { theme, lang, questionSet: defaultQuestionSetId, randomize: false }
 }
