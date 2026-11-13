@@ -1,0 +1,49 @@
+{
+  "app": {
+    "title": "Which monkey are you?"
+  },
+  "nav": {
+    "home": "Home",
+    "stats": "Stats",
+    "settings": "Settings",
+    "toggle": "Toggle navigation"
+  },
+  "home": {
+    "welcome": "Welcome! Answer a few questions and find out your inner monkey.",
+    "start": "Start the quiz",
+    "timesTaken_one": "You have taken the quiz {{count}} time.",
+    "timesTaken_other": "You have taken the quiz {{count}} times.",
+    "seeMonkeys": "See your monkeys"
+  },
+  "quiz": {
+    "progress": "Question {{current}} / {{total}}",
+    "progressLabel": "Quiz progress",
+    "back": "← Back"
+  },
+  "result": {
+    "youAre": "You are...",
+    "noResultTitle": "No result yet",
+    "noResultText": "Take the quiz to find out which monkey you are.",
+    "imageFailed": "The picture could not be loaded.",
+    "tryAgain": "Try again"
+  },
+  "stats": {
+    "timesTaken_one": "Quiz taken: {{count}} time",
+    "timesTaken_other": "Quiz taken: {{count}} times",
+    "history": "History",
+    "empty": "No results yet.",
+    "takeQuiz": "Take the quiz",
+    "noPicture": "No picture",
+    "clear": "Clear history"
+  },
+  "settings": {
+    "quiz": "Quiz",
+    "questionSet": "Question set",
+    "randomize": "Randomize question order",
+    "appearance": "Appearance",
+    "darkMode": "Dark mode",
+    "language": "Language",
+    "about": "About",
+    "aboutText": "Which monkey are you? is a small personality quiz built with React, React Router, Tailwind CSS and i18next. Monkey photos come from <link>placemonkeys.com</link>. Your results and settings are saved only in this browser (localStorage)."
+  }
+}
