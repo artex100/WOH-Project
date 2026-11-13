@@ -1,31 +1,32 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { getMonkey } from '../data/monkeys'
+import { getCat } from '../data/cats'
+import { catImage } from '../utils/catApi'
 import { useSettings } from '../context/useSettings'
 import { loadStats } from '../utils/storage'
 
-// The quiz passes the monkey id in the router state. If the page is opened
-// some other way (refresh, bookmark), fall back to the latest saved result.
-function getResultMonkey(state) {
-  const fromQuiz = getMonkey(state?.monkeyId)
-  if (fromQuiz) return fromQuiz
+// From the quiz (router state), or the latest saved result after a refresh
+function getResult(state) {
+  const fromQuiz = getCat(state?.catId)
+  if (fromQuiz) return { cat: fromQuiz, imageUrl: state.imageUrl ?? null }
 
   const { history } = loadStats()
   const latest = history[history.length - 1]
-  return latest ? getMonkey(latest.monkeyId) : undefined
+  const cat = latest && getCat(latest.catId)
+  return cat ? { cat, imageUrl: latest.imageUrl } : {}
 }
 
 function Result() {
   const location = useLocation()
   const { t } = useTranslation()
   // Read once when the page opens
-  const [monkey] = useState(() => getResultMonkey(location.state))
+  const [{ cat, imageUrl }] = useState(() => getResult(location.state))
   const { lang } = useSettings().settings
   const [imageFailed, setImageFailed] = useState(false)
 
   // No quiz finished yet
-  if (!monkey) {
+  if (!cat) {
     return (
       <section className='flex flex-col items-center py-12 text-center sm:py-20'>
         <h1>{t('result.noResultTitle')}</h1>
@@ -41,16 +42,16 @@ function Result() {
     <section className='mx-auto flex max-w-xl flex-col items-center py-6 text-center sm:py-10'>
       <article className='card mb-8 w-full overflow-hidden shadow-sm'>
         <div className='aspect-[3/2] w-full bg-sand dark:bg-jungle-line'>
-          {imageFailed ? (
+          {imageFailed || !imageUrl ? (
             <div className='text-muted flex h-full items-center justify-center p-4'>
               {t('result.imageFailed')}
             </div>
           ) : (
             <img
-              src={monkey.image}
-              alt={monkey.species[lang]}
-              width={500}
-              height={333}
+              src={catImage(imageUrl, 600)}
+              alt={cat.subtitle[lang]}
+              width={600}
+              height={400}
               className='h-full w-full object-cover'
               onError={() => setImageFailed(true)}
             />
@@ -61,9 +62,9 @@ function Result() {
           <p className='mb-1 text-sm font-semibold tracking-wide text-copper-dark uppercase dark:text-copper-light'>
             {t('result.youAre')}
           </p>
-          <h1 className='mb-1 text-3xl sm:text-4xl'>{monkey.title[lang]}</h1>
-          <p className='text-muted mb-5 text-lg italic'>{monkey.species[lang]}</p>
-          <p className='mx-auto max-w-md text-lg'>{monkey.description[lang]}</p>
+          <h1 className='mb-1 text-3xl sm:text-4xl'>{cat.title[lang]}</h1>
+          <p className='text-muted mb-5 text-lg italic'>{cat.subtitle[lang]}</p>
+          <p className='mx-auto max-w-md text-lg'>{cat.description[lang]}</p>
         </div>
       </article>
 

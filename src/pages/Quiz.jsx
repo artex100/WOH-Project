@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSettings } from '../context/useSettings'
+import { getCat } from '../data/cats'
+import { fetchCat } from '../utils/catApi'
 import { saveResult } from '../utils/storage'
 import { getQuizQuestions, getWinner } from '../utils/quiz'
 
@@ -26,21 +28,37 @@ function Quiz() {
   const [previousPick, setPreviousPick] = useState(null)
   const current = answers.length
   const question = questions[current]
+  const done = current === questions.length
   const progress = (current / questions.length) * 100
 
-  function pickAnswer(answerIndex) {
+  // Don't jump to the result if the user left the page while the cat was loading
+  const left = useRef(false)
+  useEffect(() => {
+    left.current = false
+    return () => {
+      left.current = true
+    }
+  }, [])
+
+  async function pickAnswer(answerIndex) {
     const nextAnswers = [...answers, answerIndex]
     setPreviousPick(null)
+    setAnswers(nextAnswers)
+    if (nextAnswers.length < questions.length) return
 
-    if (nextAnswers.length < questions.length) {
-      setAnswers(nextAnswers)
-      return
+    const catId = getWinner(questions, nextAnswers)
+    let imageUrl = null
+    try {
+      const cat = await fetchCat(getCat(catId).tag)
+      imageUrl = cat.imageUrl
+    } catch {
+      // Saved without a photo
     }
+    if (left.current) return
 
-    const monkeyId = getWinner(questions, nextAnswers)
-    saveResult(monkeyId)
-    // replace: the back button from the result goes home, not into a finished quiz
-    navigate('/result', { replace: true, state: { monkeyId } })
+    saveResult(catId, imageUrl)
+    // replace: back from the result goes home, not into a finished quiz
+    navigate('/result', { replace: true, state: { catId, imageUrl } })
   }
 
   function goBack() {
@@ -51,14 +69,14 @@ function Quiz() {
   return (
     <section className='mx-auto max-w-2xl py-6 sm:py-10'>
       <div className='text-muted mb-2 flex min-h-8 items-center justify-between text-sm'>
-        <span>{t('quiz.progress', { current: current + 1, total: questions.length })}</span>
-        {current > 0 && (
+        <span>{done ? '' : t('quiz.progress', { current: current + 1, total: questions.length })}</span>
+        {current > 0 && !done && (
           <button
             type='button'
             onClick={goBack}
             className='focus-ring rounded-lg px-2 py-1 font-medium transition-colors hover:bg-sand hover:text-bark dark:hover:bg-jungle-line dark:hover:text-mist'
           >
-            ← {t('quiz.back')}
+            {t('quiz.back')}
           </button>
         )}
       </div>
@@ -76,21 +94,29 @@ function Quiz() {
         />
       </div>
 
-      <h1 className='mb-6 text-2xl sm:text-3xl'>{question.text[lang]}</h1>
+      {done ? (
+        <p role='status' className='text-muted py-10 text-center text-lg'>
+          {t('quiz.loading')}
+        </p>
+      ) : (
+        <>
+          <h1 className='mb-6 text-2xl sm:text-3xl'>{question.text[lang]}</h1>
 
-      <div className='grid gap-3 sm:grid-cols-2'>
-        {question.answers.map((answer, i) => (
-          <button
-            key={`${current}-${i}`}
-            type='button'
-            aria-pressed={i === previousPick}
-            onClick={() => pickAnswer(i)}
-            className={`${answerBase} ${i === previousPick ? answerSelected : answerIdle}`}
-          >
-            {answer.text[lang]}
-          </button>
-        ))}
-      </div>
+          <div className='grid gap-3 sm:grid-cols-2'>
+            {question.answers.map((answer, i) => (
+              <button
+                key={`${current}-${i}`}
+                type='button'
+                aria-pressed={i === previousPick}
+                onClick={() => pickAnswer(i)}
+                className={`${answerBase} ${i === previousPick ? answerSelected : answerIdle}`}
+              >
+                {answer.text[lang]}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
     </section>
   )
 }

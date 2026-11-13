@@ -15,15 +15,15 @@ export function getQuizQuestions(questionSetId, randomize) {
   return randomize ? shuffle(questions) : questions
 }
 
-// Returns the id of the monkey with the most points.
-// A tie is settled randomly between the tied monkeys.
+// Returns the id of the cat with the most points.
+// A tie is settled randomly between the tied cats.
 export function getWinner(questions, answers) {
   const points = {}
   questions.forEach((question, i) => {
     const picked = question.answers[answers[i]]
     if (!picked) return
-    for (const [monkeyId, score] of Object.entries(picked.scores)) {
-      points[monkeyId] = (points[monkeyId] ?? 0) + score
+    for (const [catId, score] of Object.entries(picked.scores)) {
+      points[catId] = (points[catId] ?? 0) + score
     }
   })
 

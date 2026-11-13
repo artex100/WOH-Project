@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { loadStats } from '../utils/storage'
 
-const monkeyImage = 'lippalakkisimpanssi.webp'
+const catImage = 'catwithahat.webp'
 
 function Home() {
   const { t } = useTranslation()
@@ -14,7 +14,7 @@ function Home() {
     <section className='flex flex-col items-center py-10 text-center sm:py-16'>
       <div className='mb-8 rounded-full border border-line bg-cream p-3 dark:border-transparent dark:bg-transparent'>
         <img
-          src={monkeyImage}
+          src={catImage}
           alt=''
           width={160}
           height={160}
@@ -36,7 +36,7 @@ function Home() {
           {/* count picks the singular/plural form (_one / _other in the json) */}
           {t('home.timesTaken', { count: timesTaken })}{' '}
           <Link to='/stats' className='link'>
-            {t('home.seeMonkeys')}
+            {t('home.seeCats')}
           </Link>
         </p>
       )}

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { getMonkey } from '../data/monkeys'
+import { getCat } from '../data/cats'
+import { catImage } from '../utils/catApi'
 import { useSettings } from '../context/useSettings'
 import { clearStats, loadStats } from '../utils/storage'
 
@@ -13,23 +14,23 @@ function formatDate(isoDate, lang) {
 }
 
 // finished quiz in the history grid
-function HistoryItem({ monkey, date, lang }) {
+function HistoryItem({ cat, imageUrl, date, lang }) {
   const { t } = useTranslation()
   const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <li className='card overflow-hidden'>
       <div className='aspect-[3/2] bg-sand dark:bg-jungle-line'>
-        {imageFailed ? (
+        {imageFailed || !imageUrl ? (
           <div className='text-muted flex h-full items-center justify-center p-2 text-center text-xs'>
             {t('stats.noPicture')}
           </div>
         ) : (
           <img
-            src={monkey.image}
-            alt={monkey.species[lang]}
-            width={500}
-            height={333}
+            src={catImage(imageUrl, 300)}
+            alt={cat.subtitle[lang]}
+            width={300}
+            height={200}
             loading='lazy'
             className='h-full w-full object-cover'
             onError={() => setImageFailed(true)}
@@ -37,8 +38,8 @@ function HistoryItem({ monkey, date, lang }) {
         )}
       </div>
       <div className='p-3'>
-        <p className='mb-0.5 leading-tight font-semibold'>{monkey.title[lang]}</p>
-        <p className='text-muted mb-0 text-sm italic'>{monkey.species[lang]}</p>
+        <p className='mb-0.5 leading-tight font-semibold'>{cat.title[lang]}</p>
+        <p className='text-muted mb-0 text-sm italic'>{cat.subtitle[lang]}</p>
         <time dateTime={date} className='mt-2 block text-xs font-medium text-copper-dark dark:text-copper-light'>
           {formatDate(date, lang)}
         </time>
@@ -55,8 +56,8 @@ function Stats() {
   // History sorting
   const [history, setHistory] = useState(() =>
     loadStats()
-      .history.map((entry) => ({ ...entry, monkey: getMonkey(entry.monkeyId) }))
-      .filter((entry) => entry.monkey)
+      .history.map((entry) => ({ ...entry, cat: getCat(entry.catId) }))
+      .filter((entry) => entry.cat)
       .reverse(),
   )
 
@@ -83,7 +84,13 @@ function Stats() {
       ) : (
         <ul className='grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4'>
           {history.map((entry, i) => (
-            <HistoryItem key={`${entry.date}-${i}`} monkey={entry.monkey} date={entry.date} lang={lang} />
+            <HistoryItem
+              key={`${entry.date}-${i}`}
+              cat={entry.cat}
+              imageUrl={entry.imageUrl}
+              date={entry.date}
+              lang={lang}
+            />
           ))}
         </ul>
       )}

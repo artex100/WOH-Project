@@ -90,7 +90,7 @@ function Settings() {
           components={{
             link: (
               <a
-                href='https://www.placemonkeys.com'
+                href='https://cataas.com'
                 target='_blank'
                 rel='noreferrer'
                 className='link'
@@ -98,6 +98,9 @@ function Settings() {
             ),
           }}
         />
+      </p>
+      <p className='flex mt-5 text-muted text-sm justify-center sm:justify-center'>
+        {t('settings.madeWith')}
       </p>
     </section>
   )
