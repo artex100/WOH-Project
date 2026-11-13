@@ -3,17 +3,89 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
-  --font-display: 'Caprasimo', serif;
+  /* Fonts. --font-sans replaces Tailwind's default, so Exo is used everywhere */
+  --font-heading: 'Caprasimo', serif;
+  --font-sans: 'Exo', ui-sans-serif, system-ui, sans-serif;
+
+  /* Light theme: warm cream + dark brown */
+  --color-cream: #fbf7f1;   /* page background */
+  --color-sand: #f3ebe0;    /* subtle surface, hover */
+  --color-line: #e6dacb;    /* borders */
+  --color-bark: #3a2a1f;    /* text */
+  --color-bark-soft: #75604f; /* muted text */
+
+  /* Brand: main hex #BA6C2D */
+  --color-copper: #ba6c2d;       /* accents, progress bar, borders */
+  --color-copper-dark: #9a5722;  /* buttons + links in light theme (AA contrast with white) */
+  --color-copper-darker: #7f471b; /* button hover */
+  --color-copper-light: #e0a06a; /* accents + buttons in dark theme */
+
+  /* Secondary: leaf green, used sparingly (toggles) */
+  --color-leaf: #5e7f4f;
+  --color-leaf-light: #9cc18a;
+
+  /* Dark theme: deep jungle green */
+  --color-jungle: #121a16;       /* page background */
+  --color-jungle-surface: #1b2520; /* cards */
+  --color-jungle-line: #2d3a33;  /* borders */
+  --color-mist: #f2ece4;         /* text */
+  --color-mist-soft: #b4ab9f;    /* muted text */
 }
 
 @layer base {
+  html {
+    color-scheme: light;
+  }
+  /* Native parts (select dropdown, scrollbar) follow the theme too */
+  [data-theme=dark] {
+    color-scheme: dark;
+  }
   body {
-    @apply bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-100;
+    @apply min-h-screen bg-cream text-bark antialiased dark:bg-jungle dark:text-mist;
+  }
+  ::selection {
+    @apply bg-copper/25;
   }
   h1 {
-    @apply mb-4 text-3xl font-display font-normal;
+    @apply mb-4 font-heading text-3xl font-normal;
   }
   h2 {
-    @apply mb-2 text-xl font-semibold;
+    @apply mb-2 font-heading text-xl font-normal;
   }
+  p {
+    @apply mb-4;
+  }
+  a {
+    @apply font-medium;
+  }
+}
+
+/* Shared building blocks. @utility (not plain classes) so they work with
+   @apply and normal utilities like px-8 can still override them. */
+
+/* Same focus ring everywhere */
+@utility focus-ring {
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copper dark:focus-visible:outline-copper-light;
+}
+
+@utility btn {
+  @apply focus-ring inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition-colors;
+}
+@utility btn-primary {
+  @apply btn bg-copper-dark text-white hover:bg-copper-darker dark:bg-copper-light dark:text-jungle dark:hover:bg-copper;
+}
+@utility btn-secondary {
+  @apply btn border border-line bg-white hover:border-copper hover:bg-sand dark:border-jungle-line dark:bg-jungle-surface dark:hover:border-copper-light dark:hover:bg-jungle-line;
+}
+
+@utility card {
+  @apply rounded-2xl border border-line bg-white dark:border-jungle-line dark:bg-jungle-surface;
+}
+
+@utility text-muted {
+  @apply text-bark-soft dark:text-mist-soft;
+}
+
+@utility link {
+  @apply focus-ring rounded-sm text-copper-dark underline decoration-copper/40 underline-offset-2 hover:decoration-copper dark:text-copper-light dark:decoration-copper-light/40 dark:hover:decoration-copper-light;
 }

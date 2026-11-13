@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Mikä apina olet?"
+    "title": "Mikä kissa olet?"
   },
   "nav": {
     "home": "Etusivu",
@@ -9,21 +9,22 @@
     "toggle": "Avaa tai sulje valikko"
   },
   "home": {
-    "welcome": "Tervetuloa! Vastaa muutamaan kysymykseen ja selvitä, mikä apina sinussa piilee.",
+    "welcome": "Tervetuloa! Vastaa muutamaan kysymykseen ja selvitä sisäinen kissasi.",
     "start": "Aloita testi",
     "timesTaken_one": "Olet tehnyt testin {{count}} kerran.",
     "timesTaken_other": "Olet tehnyt testin {{count}} kertaa.",
-    "seeMonkeys": "Katso apinasi"
+    "seeCats": "Katso edelliset kissat"
   },
   "quiz": {
     "progress": "Kysymys {{current}} / {{total}}",
     "progressLabel": "Testin eteneminen",
-    "back": "← Edellinen"
+    "back": "← Edellinen",
+    "loading": "Etsitään kissaa…"
   },
   "result": {
     "youAre": "Sinä olet...",
     "noResultTitle": "Ei vielä tulosta",
-    "noResultText": "Tee testi ja selvitä, mikä apina olet.",
+    "noResultText": "Tee testi ja selvitä, mikä kissa olet.",
     "imageFailed": "Kuvaa ei voitu ladata.",
     "tryAgain": "Tee testi uudelleen"
   },
@@ -43,7 +44,8 @@
     "appearance": "Ulkoasu",
     "darkMode": "Tumma tila",
     "language": "Kieli",
-    "about": "Tietoa",
-    "aboutText": "Mikä apina olet? on pieni persoonallisuustesti, joka on toteutettu Reactilla. Mukana ovat myös React Router, Tailwind CSS ja i18next. Apinoiden kuvat tulevat palvelusta <link>placemonkeys.com</link>. Tuloksesi ja asetuksesi tallennetaan vain tähän selaimeen (localStorage)."
+    "about": "Tietoja",
+    "aboutText": "Mikä kissa olet? on pieni persoonallisuustesti, joka on toteutettu Reactilla. Kissojen kuvat tulevat <link>Cat as a Service</link> -rajapinnasta (cataas.com). Tuloksesi ja asetuksesi tallennetaan vain tähän selaimeen.",
+    "madeWith": "Tehty ❤:llä Kuopiossa, Suomessa."
   }
 }

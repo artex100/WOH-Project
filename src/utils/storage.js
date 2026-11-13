@@ -7,8 +7,8 @@
 
 import { defaultQuestionSetId } from '../data/questions'
 
-const STATS_KEY = 'monkeyQuiz.stats'
-const SETTINGS_KEY = 'monkeyQuiz.settings'
+const STATS_KEY = 'catQuiz.stats'
+const SETTINGS_KEY = 'catQuiz.settings'
 
 
 function readJSON(key) {
@@ -53,7 +53,11 @@ export function loadStats() {
   if (Array.isArray(saved.history)) {
     // Keep only entries that have the right shape
     stats.history = saved.history.filter(
-      (entry) => entry && typeof entry.monkeyId === 'string' && typeof entry.date === 'string',
+      (entry) =>
+        entry &&
+        typeof entry.catId === 'string' &&
+        typeof entry.date === 'string' &&
+        (typeof entry.imageUrl === 'string' || entry.imageUrl === null),
     )
   }
   return stats
@@ -61,10 +65,11 @@ export function loadStats() {
 
 // Call when a quiz is finished: timesTaken++ and the result goes to history.
 // Returns the updated stats.
-export function saveResult(monkeyId) {
+// imageUrl is null if the cat API failed
+export function saveResult(catId, imageUrl) {
   const stats = loadStats()
   stats.timesTaken += 1
-  stats.history.push({ date: new Date().toISOString(), monkeyId })
+  stats.history.push({ date: new Date().toISOString(), catId, imageUrl: imageUrl ?? null })
   writeJSON(STATS_KEY, stats)
   return stats
 }
